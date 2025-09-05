@@ -1,6 +1,8 @@
 <script>
-	import AppearanceSwitcher from '$lib/components/appearance-switcher.svelte';
+	import SiteHeader from '$lib/components/sidebar/site-header.svelte';
 </script>
 
-<AppearanceSwitcher />
-<h1>This is the dashboard</h1>
+<SiteHeader />
+<div class="flex p-6">
+	<h1>This is the dashboard</h1>
+</div>
