@@ -15,7 +15,15 @@ import { presetAnimations } from 'unocss-preset-animations';
 export default defineConfig({
 	presets: [
 		presetWind4(),
-		presetIcons(),
+		presetIcons({
+			extraProperties: {
+				display: 'inline-block',
+				'vertical-align': 'middle'
+			},
+			collections: {
+				lucide: () => import('@iconify-json/lucide/icons.json').then((i) => i.default)
+			}
+		}),
 		presetAttributify(),
 		presetTypography(),
 		presetWebFonts({
