@@ -1,6 +1,7 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
 	import 'uno.css';
+	import '@unocss/reset/tailwind.css';
 	let { children } = $props();
 </script>
 
