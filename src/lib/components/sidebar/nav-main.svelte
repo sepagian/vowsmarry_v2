@@ -19,18 +19,21 @@
 	} = $props();
 </script>
 
-<Sidebar.Group>
+<Sidebar.Group class="gap-2">
 	<Sidebar.Menu>
 		<Sidebar.MenuItem>
-			<Sidebar.MenuButton tooltipContent="Dashboard">
+			<Sidebar.MenuButton
+				tooltipContent="Dashboard"
+				class="hover:bg-neutral-200 dark:hover:bg-neutral-900 h-12"
+			>
 				<a href="##" class="flex flex-1 gap-2">
-					<div class="i-lucide:house h-5 w-5"></div>
+					<div class="i-lucide:house h-5 w-5 bg-neutral-700 dark:bg-neutral-200"></div>
 					<span>Dashboard</span>
 				</a>
 			</Sidebar.MenuButton>
 		</Sidebar.MenuItem>
 	</Sidebar.Menu>
-	<Sidebar.Menu>
+	<Sidebar.Menu class="gap-2">
 		{#each items as item (item.title)}
 			<Collapsible.Root open={item.isActive} class="group/collapsible">
 				{#snippet child({ props })}
@@ -40,7 +43,7 @@
 								<Sidebar.MenuButton {...props} tooltipContent={item.title}>
 									<div class="flex flex-1 gap-2">
 										{#if item.icon}
-											<div class="{item.icon} h-5 w-5"></div>
+											<div class="{item.icon} h-5 w-5 bg-neutral-700 dark:bg-neutral-200"></div>
 										{/if}
 										<span>{item.title}</span>
 									</div>
@@ -51,10 +54,12 @@
 							{/snippet}
 						</Collapsible.Trigger>
 						<Collapsible.Content>
-							<Sidebar.MenuSub>
+							<Sidebar.MenuSub class="gap-1">
 								{#each item.items ?? [] as subItem (subItem.title)}
 									<Sidebar.MenuSubItem>
-										<Sidebar.MenuSubButton>
+										<Sidebar.MenuSubButton
+											class="hover:bg-neutral-200 dark:hover:bg-neutral-900 h-8"
+										>
 											{#snippet child({ props })}
 												<a href={subItem.url} {...props}>
 													{#if subItem.icon}
