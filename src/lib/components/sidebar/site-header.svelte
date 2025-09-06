@@ -36,8 +36,8 @@
 			<DropdownMenu.Content>
 				<DropdownMenu.Group>
 					<DropdownMenu.Item>New Task</DropdownMenu.Item>
-					<DropdownMenu.Item>Upload Document</DropdownMenu.Item>
 					<DropdownMenu.Item>Add Expense</DropdownMenu.Item>
+					<DropdownMenu.Item>Upload Document</DropdownMenu.Item>
 				</DropdownMenu.Group>
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
