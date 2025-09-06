@@ -3,6 +3,8 @@
 	import * as Sidebar from '$lib/components/ui/sidebar/index';
 	import { Separator } from '$lib/components/ui/separator/index';
 	import AppearanceSwitcher from '../appearance-switcher.svelte';
+	import { Button } from '$lib/components/ui/button/index';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index';
 </script>
 
 <div
@@ -23,5 +25,23 @@
 			</Breadcrumb.List>
 		</Breadcrumb.Root>
 	</div>
-	<AppearanceSwitcher />
+	<div class="flex justify-end gap-4">
+		<DropdownMenu.Root>
+			<DropdownMenu.Trigger>
+				<Button variant="outline" size="sm" class="h-9"
+					>Quick Actions
+					<div class="i-lucide:chevron-down ml-auto"></div></Button
+				>
+			</DropdownMenu.Trigger>
+			<DropdownMenu.Content>
+				<DropdownMenu.Group>
+					<DropdownMenu.Item>New Task</DropdownMenu.Item>
+					<DropdownMenu.Item>Upload Document</DropdownMenu.Item>
+					<DropdownMenu.Item>Add Expense</DropdownMenu.Item>
+				</DropdownMenu.Group>
+			</DropdownMenu.Content>
+		</DropdownMenu.Root>
+
+		<AppearanceSwitcher />
+	</div>
 </div>
