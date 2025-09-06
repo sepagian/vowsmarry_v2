@@ -26,9 +26,11 @@
 				tooltipContent="Dashboard"
 				class="hover:bg-neutral-200 dark:hover:bg-neutral-900 h-12"
 			>
-				<a href="##" class="flex flex-1 gap-2">
-					<div class="i-lucide:house h-5 w-5 bg-neutral-700 dark:bg-neutral-200"></div>
-					<span>Dashboard</span>
+				<a href="##" class="flex flex-1 gap-2 items-center">
+					<div
+						class="i-lucide:house translate-y-[1px] translate-x-[-2px] h-5 w-5 bg-neutral-700 dark:bg-neutral-200"
+					></div>
+					<span class="text-base">Dashboard</span>
 				</a>
 			</Sidebar.MenuButton>
 		</Sidebar.MenuItem>
@@ -41,11 +43,13 @@
 						<Collapsible.Trigger>
 							{#snippet child({ props })}
 								<Sidebar.MenuButton {...props} tooltipContent={item.title}>
-									<div class="flex flex-1 gap-2">
+									<div class="flex flex-1 gap-2 items-center">
 										{#if item.icon}
-											<div class="{item.icon} h-5 w-5 bg-neutral-700 dark:bg-neutral-200"></div>
+											<div
+												class="{item.icon} translate-y-[1px] translate-x-[-2px] h-5 w-5 bg-neutral-700 dark:bg-neutral-200"
+											></div>
 										{/if}
-										<span>{item.title}</span>
+										<span class="text-base">{item.title}</span>
 									</div>
 									<div
 										class="i-lucide:chevron-right ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
@@ -54,7 +58,7 @@
 							{/snippet}
 						</Collapsible.Trigger>
 						<Collapsible.Content>
-							<Sidebar.MenuSub class="gap-1">
+							<Sidebar.MenuSub class="gap-0">
 								{#each item.items ?? [] as subItem (subItem.title)}
 									<Sidebar.MenuSubItem>
 										<Sidebar.MenuSubButton
@@ -66,7 +70,7 @@
 														<div class="{subItem.icon} h-5 w-5"></div>
 													{/if}
 
-													<span>{subItem.title}</span>
+													<span class="text-sm">{subItem.title}</span>
 												</a>
 											{/snippet}
 										</Sidebar.MenuSubButton>
