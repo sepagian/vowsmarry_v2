@@ -1,6 +1,7 @@
 <script>
-	import SectionCards from '$lib/components/sidebar/section-cards.svelte';
 	import SiteHeader from '$lib/components/sidebar/site-header.svelte';
+	import SectionCards from '$lib/components/section/section-cards.svelte';
+	import SectionTodo from '$lib/components/section/section-todo.svelte';
 
 	const data = [
 		{
@@ -30,6 +31,7 @@
 </script>
 
 <SiteHeader />
-<div class="flex flex-col">
+<div class="flex flex-col gap-4">
 	<SectionCards {data} />
+	<SectionTodo />
 </div>
