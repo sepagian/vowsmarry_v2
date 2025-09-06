@@ -11,6 +11,7 @@ import {
 } from 'unocss';
 import { builtinColors, presetShadcn } from 'unocss-preset-shadcn';
 import { presetAnimations } from 'unocss-preset-animations';
+import { presetScrollbar } from 'unocss-preset-scrollbar';
 
 export default defineConfig({
 	presets: [
@@ -35,7 +36,8 @@ export default defineConfig({
 			}
 		}),
 		presetAnimations(),
-		presetShadcn(builtinColors.map((c) => ({ color: c })))
+		presetShadcn(builtinColors.map((c) => ({ color: c }))),
+		presetScrollbar()
 	],
 	transformers: [transformerDirectives(), transformerVariantGroup(), transformerCompileClass()]
 });
