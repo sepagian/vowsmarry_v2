@@ -46,6 +46,7 @@
 		"typescript-eslint": "^8.20.0",
 		"unocss": "^66.5.0",
 		"unocss-preset-animations": "^1.2.1",
+		"unocss-preset-scrollbar": "^3.2.0",
 		"unocss-preset-shadcn": "^1.0.1",
 		"vite": "^7.0.4"
 	},
