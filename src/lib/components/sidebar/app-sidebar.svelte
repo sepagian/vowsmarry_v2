@@ -15,7 +15,7 @@
 					{ title: 'Documents', url: '/dashboard/document' }, // contracts, receipts, inspo
 					{ title: 'Vendors', url: '/dashboard/vendor' },
 					{ title: 'Schedule', url: '/dashboard/rundown' }, // could include dresscode
-					{ title: 'Finance', url: '/dashboard/finance' } // quick link to finance
+					{ title: 'Budget', url: '/dashboard/budget' } // quick link to finance
 				]
 			},
 			{
