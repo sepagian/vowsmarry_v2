@@ -25,7 +25,7 @@
 		renderSnippet
 	} from '$lib/components/ui/data-table/index.js';
 
-	type Payment = {
+	type Expense = {
 		id: string;
 		date: string;
 		category: string;
@@ -34,26 +34,90 @@
 		status: 'Paid' | 'Pending';
 	};
 
-	const data: Payment[] = [
+	const data: Expense[] = [
 		{
-			id: 'm5gr84i9',
-			amount: 2000000,
-			status: 'Paid',
-			date: '2023-10-01',
-			category: 'Decoration',
-			description: 'DP Tenda'
+			id: '1',
+			date: '2025-08-01',
+			category: 'Venue',
+			description: 'Down payment for venue booking',
+			amount: 5_000_000,
+			status: 'Paid'
 		},
 		{
-			id: 'm5gr84i9',
-			amount: 1500000,
-			status: 'Paid',
-			date: '2023-10-01',
+			id: '2',
+			date: '2025-08-03',
+			category: 'Venue',
+			description: 'Final payment for venue',
+			amount: 3_000_000,
+			status: 'Pending'
+		},
+		{
+			id: '3',
+			date: '2025-08-05',
 			category: 'Catering',
-			description: 'DP Catering'
+			description: 'Initial catering deposit',
+			amount: 3_000_000,
+			status: 'Paid'
+		},
+		{
+			id: '4',
+			date: '2025-08-08',
+			category: 'Catering',
+			description: 'Second catering installment',
+			amount: 2_000_000,
+			status: 'Paid'
+		},
+		{
+			id: '5',
+			date: '2025-08-10',
+			category: 'Decoration',
+			description: 'Stage setup & flowers',
+			amount: 3_500_000,
+			status: 'Paid'
+		},
+		{
+			id: '6',
+			date: '2025-08-12',
+			category: 'Photography',
+			description: 'Pre-wedding photoshoot',
+			amount: 2_000_000,
+			status: 'Paid'
+		},
+		{
+			id: '7',
+			date: '2025-08-15',
+			category: 'Photography',
+			description: 'Wedding day coverage',
+			amount: 2_000_000,
+			status: 'Pending'
+		},
+		{
+			id: '8',
+			date: '2025-08-18',
+			category: 'Attire',
+			description: 'Bride and groom outfits',
+			amount: 4_000_000,
+			status: 'Paid'
+		},
+		{
+			id: '9',
+			date: '2025-08-20',
+			category: 'Entertainment',
+			description: 'Live band booking',
+			amount: 2_500_000,
+			status: 'Paid'
+		},
+		{
+			id: '10',
+			date: '2025-08-22',
+			category: 'Makeup & Hair',
+			description: 'Bridal makeup package',
+			amount: 3_000_000,
+			status: 'Pending'
 		}
 	];
 
-	const columns: ColumnDef<Payment>[] = [
+	const columns: ColumnDef<Expense>[] = [
 		{
 			id: 'select',
 			header: ({ table }) =>
@@ -184,7 +248,7 @@
 		}
 	];
 
-	let pagination = $state<PaginationState>({ pageIndex: 0, pageSize: 10 });
+	let pagination = $state<PaginationState>({ pageIndex: 0, pageSize: 5 });
 	let sorting = $state<SortingState>([]);
 	let columnFilters = $state<ColumnFiltersState>([]);
 	let rowSelection = $state<RowSelectionState>({});
