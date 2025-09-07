@@ -3,6 +3,7 @@
 	import AppSidebar from '$lib/components/sidebar/app-sidebar.svelte';
 	import favicon from '$lib/assets/favicon.svg';
 	import { ModeWatcher } from 'mode-watcher';
+	import SiteHeader from '$lib/components/sidebar/site-header.svelte';
 
 	let { children } = $props();
 </script>
@@ -15,9 +16,16 @@
 
 <ModeWatcher />
 
-<Sidebar.Provider>
-	<AppSidebar />
-	<main class="flex flex-1 flex-col overflow-y-auto">
-		{@render children()}
-	</main>
-</Sidebar.Provider>
+<div class="[--header-height:calc(--spacing(14))]">
+	<Sidebar.Provider class="flex flex-col">
+		<div class="flex flex-1">
+			<AppSidebar />
+			<Sidebar.Inset>
+				<SiteHeader />
+				<main class="">
+					{@render children()}
+				</main>
+			</Sidebar.Inset>
+		</div>
+	</Sidebar.Provider>
+</div>
