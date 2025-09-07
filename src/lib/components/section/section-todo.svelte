@@ -1,12 +1,15 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card/index';
 	import * as Select from '$lib/components/ui/select/index';
+	import * as Dialog from '$lib/components/ui/dialog/index';
 	import { Label } from '$lib/components/ui/label/index';
-	import { Button } from '$lib/components/ui/button/index';
+	import { Button, buttonVariants } from '$lib/components/ui/button/index';
+	import { Input } from '$lib/components/ui/input/index';
+	import DialogTask from '../dialog/dialog-task.svelte';
 
 	type Task = {
 		title: string;
-		description: string;
+		description?: string;
 		done?: boolean | false;
 	};
 
@@ -42,7 +45,7 @@
 
 <!-- Header -->
 <div class="flex px-6 justify-between items-center">
-	<h2 class="text-base font-bold text-neutral-600">Upcoming Tasks</h2>
+	<h2 class="text-base font-bold text-neutral-600">Tasks</h2>
 	<div class="flex flex-1 items-center justify-end gap-4">
 		<Select.Root type="single" name="taskFilter" bind:value={filter}>
 			<Select.Trigger class="w-40 border border-neutral-300">
@@ -50,7 +53,6 @@
 			</Select.Trigger>
 			<Select.Content>
 				<Select.Group>
-					<Select.Label>Filter</Select.Label>
 					{#each filterOptions as f (f.value)}
 						<Select.Item value={f.value} label={f.label}>
 							{f.label}
@@ -60,10 +62,13 @@
 			</Select.Content>
 		</Select.Root>
 
-		<Button variant="outline" size="sm" class="items-center">
-			<div class="i-lucide:plus"></div>
-			<span class="hidden lg:inline">Add New Task</span>
-		</Button>
+		<Dialog.Root>
+			<Dialog.Trigger class={buttonVariants({ variant: 'outline', size: 'default' })}>
+				<div class="i-lucide:plus p-2"></div>
+				<span class="hidden lg:inline">Add New Task</span>
+			</Dialog.Trigger>
+			<DialogTask />
+		</Dialog.Root>
 	</div>
 </div>
 
