@@ -16,7 +16,7 @@
 </script>
 
 <div class="flex flex-col px-6">
-	<h2 class="text-base font-bold text-neutral-600">Budget</h2>
+	<h2 class="text-base font-bold text-neutral-600">Budget & Expenses</h2>
 </div>
 
 <div
@@ -45,6 +45,5 @@
 </div>
 
 <div class="flex flex-col px-6">
-	<h2 class="text-base font-bold text-neutral-600">Recent Expenses</h2>
 	<ExpenseTable />
 </div>
