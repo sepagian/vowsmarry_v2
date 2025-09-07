@@ -2,8 +2,9 @@
 	import SectionCards from '$lib/components/section/section-cards.svelte';
 	import SectionTodo from '$lib/components/section/section-todo.svelte';
 	import SectionBudget from '$lib/components/section/section-budget.svelte';
+	import SectionDocs from '$lib/components/section/section-docs.svelte';
 
-	const data = [
+	const overviewCards = [
 		{
 			title: '12',
 			description: 'Tasks',
@@ -29,7 +30,7 @@
 		}
 	];
 
-	const budgetData = [
+	const budgetCards = [
 		{
 			title: 'Rp50.000.000',
 			description: 'Total Budget',
@@ -61,10 +62,34 @@
 			description: 'Finalize and book the wedding photographer.'
 		}
 	];
+
+	const docsCards = [
+		{
+			title: '1',
+			description: 'Completed',
+			footer: 'Updated 1 day ago'
+		},
+		{
+			title: '1',
+			description: 'In Progress',
+			footer: 'Updated 2 days ago'
+		},
+		{
+			title: '2',
+			description: 'Overdue',
+			footer: 'Updated 3 days ago'
+		},
+		{
+			title: '4',
+			description: 'Total',
+			footer: 'Updated 3 days ago'
+		}
+	];
 </script>
 
 <div class="flex flex-1 flex-col gap-8 py-4 min-h-[calc(100vh-3rem)]">
-	<SectionCards {data} />
+	<SectionCards {overviewCards} />
 	<SectionTodo {tasks} />
-	<SectionBudget {budgetData} />
+	<SectionBudget {budgetCards} />
+	<SectionDocs {docsCards} />
 </div>
