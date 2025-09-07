@@ -1,34 +1,70 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card/index';
-	import { Button } from '$lib/components/ui/button/index';
 	import * as Select from '$lib/components/ui/select/index';
+	import { Label } from '$lib/components/ui/label/index';
+	import { Button } from '$lib/components/ui/button/index';
 
-	type TaskStatus = 'complete' | 'on-going' | 'pending';
+	type Task = {
+		title: string;
+		description: string;
+		done?: boolean | false;
+	};
 
 	let {
 		tasks
 	}: {
-		tasks: {
-			title: string;
-			description: string;
-			status: TaskStatus;
-		}[];
+		tasks: Task[];
 	} = $props();
 
-	const statusOptions: { value: TaskStatus; label: string }[] = [
-		{ value: 'complete', label: 'Complete' },
-		{ value: 'on-going', label: 'Ongoing' },
-		{ value: 'pending', label: 'Pending' }
+	// Filter options
+	type Filter = 'all' | 'active' | 'completed';
+	const filterOptions: { value: Filter; label: string }[] = [
+		{ value: 'all', label: 'All Tasks' },
+		{ value: 'active', label: 'Active' },
+		{ value: 'completed', label: 'Completed' }
 	];
+
+	let filter: Filter = $state('all');
+
+	// Derived filtered tasks
+	const filteredTasks = $derived(
+		filter === 'all'
+			? tasks
+			: filter === 'active'
+				? tasks.filter((t) => !t.done)
+				: tasks.filter((t) => t.done)
+	);
+
+	function toggleTask(t: Task) {
+		tasks = tasks.map((task) => (task.title === t.title ? { ...task, done: !task.done } : task));
+	}
 </script>
 
 <!-- Header -->
 <div class="flex px-6 justify-between items-center">
 	<h2 class="text-base font-bold text-neutral-600">Upcoming Tasks</h2>
-	<Button variant="outline" size="sm" class="items-center">
-		<div class="i-lucide:plus"></div>
-		<span class="hidden lg:inline">Add Task</span>
-	</Button>
+	<div class="flex flex-1 items-center justify-end gap-4">
+		<Select.Root type="single" name="taskFilter" bind:value={filter}>
+			<Select.Trigger class="w-40 border border-neutral-300">
+				{filterOptions.find((f) => f.value === filter)?.label}
+			</Select.Trigger>
+			<Select.Content>
+				<Select.Group>
+					<Select.Label>Filter</Select.Label>
+					{#each filterOptions as f (f.value)}
+						<Select.Item value={f.value} label={f.label}>
+							{f.label}
+						</Select.Item>
+					{/each}
+				</Select.Group>
+			</Select.Content>
+		</Select.Root>
+
+		<Button variant="outline" size="sm" class="items-center">
+			<div class="i-lucide:plus"></div>
+			<span class="hidden lg:inline">Add New Task</span>
+		</Button>
+	</div>
 </div>
 
 <!-- Profile completion alert -->
@@ -50,33 +86,36 @@
 	</Card.Root>
 
 	<!-- Task list -->
-	{#each tasks as task (task.title)}
-		<Card.Root class="@container/card flex flex-row justify-between items-center">
-			<div class="w-full">
-				<Card.Header>
-					<Card.Title class="leading-6 text-base">{task.title}</Card.Title>
-				</Card.Header>
-				<Card.Content class="text-sm">
-					<p>{task.description}</p>
-				</Card.Content>
-			</div>
-			<div class="w-fit justify-end flex px-6">
-				<Select.Root type="single" name="taskStatus" bind:value={task.status}>
-					<Select.Trigger class="w-48 border border-neutral-300">
-						{statusOptions.find((s) => s.value === task.status)?.label ?? 'Select status'}
-					</Select.Trigger>
-					<Select.Content class="w-48">
-						<Select.Group>
-							<Select.Label>Status</Select.Label>
-							{#each statusOptions as status (status.value)}
-								<Select.Item value={status.value} label={status.label}>
-									{status.label}
-								</Select.Item>
-							{/each}
-						</Select.Group>
-					</Select.Content>
-				</Select.Root>
-			</div>
-		</Card.Root>
-	{/each}
+	{#if filteredTasks.length > 0}
+		{#each filteredTasks as task (task.title)}
+			<Card.Root class="@container/card flex flex-row justify-between items-center">
+				<div class="pl-6 flex items-center w-full">
+					<input
+						type="checkbox"
+						checked={task.done}
+						onchange={() => toggleTask(task)}
+						class="mt-1 w-4 h-4 rounded border-neutral-300 text-primary focus:ring-primary"
+					/>
+					<div>
+						<Card.Header>
+							<Card.Title
+								class={`leading-6 text-base ${task.done ? 'line-through text-neutral-400' : ''}`}
+							>
+								{task.title}
+							</Card.Title>
+						</Card.Header>
+						<Card.Content class="text-sm">
+							<p class={task.done ? 'line-through text-neutral-400' : ''}>
+								{task.description}
+							</p>
+						</Card.Content>
+					</div>
+				</div>
+			</Card.Root>
+		{/each}
+	{:else}
+		<Label class="flex items-center justify-center h-12 gap-3 rounded-lg border p-3"
+			>You have not completed any task yet</Label
+		>
+	{/if}
 </div>
