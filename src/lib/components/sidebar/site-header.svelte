@@ -1,9 +1,7 @@
 <script lang="ts">
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index';
 	import * as Sidebar from '$lib/components/ui/sidebar/index';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index';
 	import { Separator } from '$lib/components/ui/separator/index';
-	import { Button } from '$lib/components/ui/button/index';
 	import AppearanceSwitcher from '../appearance-switcher.svelte';
 	import { page } from '$app/state';
 
@@ -21,7 +19,7 @@
 </script>
 
 <header
-	class="sticky top-0 z-50 flex items-center border-b group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear"
+	class="sticky top-0 z-50 flex items-center border-b flex h-14 shrink-0 items-center gap-2 transition-[width,height] ease-linear"
 >
 	<div class="h-14 flex w-full items-center gap-2 justify-between px-6">
 		<div class="flex items-center gap-2">
