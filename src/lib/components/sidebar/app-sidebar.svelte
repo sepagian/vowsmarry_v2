@@ -47,7 +47,7 @@
 	}: ComponentProps<typeof Sidebar.Root> = $props();
 </script>
 
-<Sidebar.Root class="h-[calc(100svh-var(--header-height))]!" {collapsible} {variant} {...restProps}>
+<Sidebar.Root class="" {collapsible} {variant} {...restProps}>
 	<Sidebar.Content class="align-center pt-6">
 		<NavMain items={items.navMain} />
 	</Sidebar.Content>
