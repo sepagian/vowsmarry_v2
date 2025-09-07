@@ -15,8 +15,9 @@
 	import ExpenseTableCheckbox from './expense-table-checkbox.svelte';
 	import ExpenseTableActions from './expense-table-actions.svelte';
 	import * as Table from '$lib/components/ui/table/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import {
 		FlexRender,
@@ -24,6 +25,7 @@
 		renderComponent,
 		renderSnippet
 	} from '$lib/components/ui/data-table/index.js';
+	import DialogExpense from '../dialog/dialog-expense.svelte';
 
 	type Expense = {
 		id: string;
@@ -332,7 +334,7 @@
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger>
 				{#snippet child({ props })}
-					<Button {...props} variant="outline" size="sm" class="ml-auto items-center">
+					<Button {...props} variant="outline" class="ml-auto items-center">
 						<div class="i-lucide:columns-2"></div>
 						View
 						<div class="i-lucide:chevron-down ml-2"></div>
@@ -350,10 +352,13 @@
 				{/each}
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
-		<Button variant="outline" size="sm" class="items-center">
-			<div class="i-lucide:plus"></div>
-			<span class="hidden lg:inline">Add Expense</span>
-		</Button>
+		<Dialog.Root>
+			<Dialog.Trigger class={buttonVariants({ variant: 'outline', size: 'default' })}>
+				<div class="i-lucide:plus p-2"></div>
+				<span class="hidden lg:inline">Add Expense</span>
+			</Dialog.Trigger>
+			<DialogExpense />
+		</Dialog.Root>
 	</div>
 	<div class="rounded-md border">
 		<Table.Root>
