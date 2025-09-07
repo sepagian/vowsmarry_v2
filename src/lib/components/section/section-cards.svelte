@@ -3,9 +3,9 @@
 	import * as Card from '$lib/components/ui/card/index';
 
 	let {
-		data
+		overviewCards
 	}: {
-		data: {
+		overviewCards: {
 			title: string;
 			description: string;
 			action?: string;
@@ -22,7 +22,7 @@
 	<div
 		class="flex gap-4 overflow-x-auto scrollbar-none scroll-smooth sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 px-6"
 	>
-		{#each data as data (data.description)}
+		{#each overviewCards as data (data.description)}
 			<Card.Root class="@container/card shrink-0 w-64 sm:w-auto gap-2">
 				<Card.Header>
 					<Card.Description>{data.description}</Card.Description>

@@ -43,7 +43,7 @@
 	}
 </script>
 
-<div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2 pb-2">
 	<!-- Header -->
 	<div class="flex px-6 justify-between items-center">
 		<h2 class="text-base font-bold text-neutral-600">Tasks</h2>
