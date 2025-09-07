@@ -63,7 +63,7 @@
 	];
 </script>
 
-<div class="flex flex-1 flex-col gap-4 py-4 min-h-[calc(100vh-3rem)]">
+<div class="flex flex-1 flex-col gap-8 py-4 min-h-[calc(100vh-3rem)]">
 	<SectionCards {data} />
 	<SectionTodo {tasks} />
 	<SectionBudget {budgetData} />
