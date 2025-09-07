@@ -26,7 +26,7 @@
 				tooltipContent="Dashboard"
 				class="hover:bg-neutral-200 dark:hover:bg-neutral-900 h-12"
 			>
-				<a href="##" class="flex flex-1 gap-2 items-center">
+				<a href="/dashboard" class="flex flex-1 gap-2 items-center">
 					<div
 						class="i-lucide:house translate-y-[1px] translate-x-[-2px] h-5 w-5 bg-neutral-700 dark:bg-neutral-200"
 					></div>
