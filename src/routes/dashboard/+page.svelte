@@ -50,18 +50,15 @@
 	const tasks = [
 		{
 			title: 'Create Wedding Website',
-			description: 'Design and launch the wedding website for guests.',
-			status: 'on-going'
+			description: 'Design and launch the wedding website for guests.'
 		},
 		{
 			title: 'Send Invitations',
-			description: 'Mail out physical invitations to all guests.',
-			status: 'pending'
+			description: 'Mail out physical invitations to all guests.'
 		},
 		{
 			title: 'Book Photographer',
-			description: 'Finalize and book the wedding photographer.',
-			status: 'complete'
+			description: 'Finalize and book the wedding photographer.'
 		}
 	];
 </script>
