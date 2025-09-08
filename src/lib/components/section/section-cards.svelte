@@ -3,7 +3,8 @@
 	import * as Card from '$lib/components/ui/card/index';
 
 	let {
-		overviewCards
+		overviewCards,
+		overviewTitle
 	}: {
 		overviewCards: {
 			title: string;
@@ -11,12 +12,13 @@
 			action?: string;
 			footer: string;
 		}[];
+		overviewTitle: string;
 	} = $props();
 </script>
 
 <div class="flex flex-col gap-3">
 	<div class="flex flex-col px-6">
-		<h2 class="text-base font-bold text-neutral-600">Quick Glance</h2>
+		<h2 class="text-base font-bold text-neutral-600">{overviewTitle}</h2>
 	</div>
 
 	<div
