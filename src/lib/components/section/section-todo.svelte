@@ -4,7 +4,6 @@
 	import * as Dialog from '$lib/components/ui/dialog/index';
 	import { Label } from '$lib/components/ui/label/index';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index';
-	import { Input } from '$lib/components/ui/input/index';
 	import DialogTask from '../dialog/dialog-task.svelte';
 
 	type Task = {
