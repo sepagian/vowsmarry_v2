@@ -19,12 +19,12 @@
 	} = $props();
 </script>
 
-<Sidebar.Group class="gap-2">
+<Sidebar.Group class="border-t-1">
 	<Sidebar.Menu>
 		<Sidebar.MenuItem>
 			<Sidebar.MenuButton
 				tooltipContent="Dashboard"
-				class="hover:bg-neutral-200 dark:hover:bg-neutral-900 h-12"
+				class="hover:bg-neutral-200 dark:hover:bg-neutral-900 h-10"
 			>
 				<a href="/dashboard" class="flex flex-1 gap-2 items-center">
 					<div
