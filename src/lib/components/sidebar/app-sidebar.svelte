@@ -13,9 +13,9 @@
 				items: [
 					{ title: 'Tasks', url: '/dashboard/task' }, // could include paperwork
 					{ title: 'Documents', url: '/dashboard/document' }, // contracts, receipts, inspo
+					{ title: 'Budget', url: '/dashboard/budget' }, // quick link to finance
 					{ title: 'Vendors', url: '/dashboard/vendor' },
-					{ title: 'Schedule', url: '/dashboard/rundown' }, // could include dresscode
-					{ title: 'Budget', url: '/dashboard/budget' } // quick link to finance
+					{ title: 'Schedule', url: '/dashboard/rundown' } // could include dresscode
 				]
 			},
 			{
@@ -41,7 +41,7 @@
 
 	let {
 		ref = $bindable(null),
-		collapsible = 'icon',
+		collapsible = 'offcanvas',
 		variant = 'sidebar',
 		...restProps
 	}: ComponentProps<typeof Sidebar.Root> = $props();
