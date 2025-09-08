@@ -19,12 +19,12 @@
 	<Sidebar.Provider class="flex flex-col">
 		<div class="flex flex-1">
 			<AppSidebar />
-			<div class="flex flex-1 flex-col">
+			<Sidebar.Inset>
 				<SiteHeader />
-				<main class="">
+				<main>
 					{@render children()}
 				</main>
-			</div>
+			</Sidebar.Inset>
 		</div>
 	</Sidebar.Provider>
 </div>
