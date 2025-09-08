@@ -11,7 +11,6 @@
 <svelte:head>
 	<link rel="icon" type="image/svg+xml" href={favicon} />
 	<link rel="alternate icon" href="/favicon.ico" />
-	<title>Dashboard - WedPlan</title>
 </svelte:head>
 
 <ModeWatcher />
@@ -20,12 +19,12 @@
 	<Sidebar.Provider class="flex flex-col">
 		<div class="flex flex-1">
 			<AppSidebar />
-			<Sidebar.Inset>
+			<div class="flex flex-1 flex-col">
 				<SiteHeader />
 				<main class="">
 					{@render children()}
 				</main>
-			</Sidebar.Inset>
+			</div>
 		</div>
 	</Sidebar.Provider>
 </div>
