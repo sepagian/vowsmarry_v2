@@ -24,7 +24,7 @@
 	<div class="h-14 flex w-full items-center gap-2 justify-between px-6">
 		<div class="flex items-center gap-2">
 			<Sidebar.Trigger class="h-4 w-4" />
-			<Separator orientation="vertical" class="mr-2 data-[orientation=vertical]:h-4" />
+			<Separator orientation="vertical" class="mr-2 h-14" />
 			<Breadcrumb.Root class="hidden sm:block">
 				<Breadcrumb.List>
 					{#each breadcrumbs as crumb, i (i)}
