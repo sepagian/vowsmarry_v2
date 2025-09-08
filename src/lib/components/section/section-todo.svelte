@@ -2,6 +2,7 @@
 	import * as Card from '$lib/components/ui/card/index';
 	import * as Select from '$lib/components/ui/select/index';
 	import * as Dialog from '$lib/components/ui/dialog/index';
+	import { ScrollArea } from '$lib/components/ui/scroll-area/index';
 	import { Label } from '$lib/components/ui/label/index';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index';
 	import DialogTask from '../dialog/dialog-task.svelte';
@@ -91,37 +92,39 @@
 		</Card.Root>
 
 		<!-- Task list -->
-		{#if filteredTasks.length > 0}
-			{#each filteredTasks as task (task.title)}
-				<Card.Root class="@container/card flex flex-row justify-between items-center">
-					<div class="pl-6 flex items-center w-full">
-						<input
-							type="checkbox"
-							checked={task.done}
-							onchange={() => toggleTask(task)}
-							class="mt-1 w-4 h-4 rounded border-neutral-300 text-primary focus:ring-primary"
-						/>
-						<div>
-							<Card.Header>
-								<Card.Title
-									class={`leading-6 text-base ${task.done ? 'line-through text-neutral-400' : ''}`}
-								>
-									{task.title}
-								</Card.Title>
-							</Card.Header>
-							<Card.Content class="text-sm">
-								<p class={task.done ? 'line-through text-neutral-400' : ''}>
-									{task.description}
-								</p>
-							</Card.Content>
+		<div class="flex flex-col gap-4">
+			{#if filteredTasks.length > 0}
+				{#each filteredTasks as task (task.title)}
+					<Card.Root class="@container/card flex flex-row justify-between items-center">
+						<div class="pl-6 flex items-center w-full">
+							<input
+								type="checkbox"
+								checked={task.done}
+								onchange={() => toggleTask(task)}
+								class="mt-1 w-4 h-4 rounded border-neutral-300 text-primary focus:ring-primary"
+							/>
+							<div>
+								<Card.Header>
+									<Card.Title
+										class={`leading-6 text-base ${task.done ? 'line-through text-neutral-400' : ''}`}
+									>
+										{task.title}
+									</Card.Title>
+								</Card.Header>
+								<Card.Content class="text-sm">
+									<p class={task.done ? 'line-through text-neutral-400' : ''}>
+										{task.description}
+									</p>
+								</Card.Content>
+							</div>
 						</div>
-					</div>
-				</Card.Root>
-			{/each}
-		{:else}
-			<Label class="flex items-center justify-center h-12 gap-3 rounded-lg border p-3"
-				>You have not completed any task yet</Label
-			>
-		{/if}
+					</Card.Root>
+				{/each}
+			{:else}
+				<Label class="flex items-center justify-center h-12 gap-3 rounded-lg border p-3"
+					>You have not completed any task yet</Label
+				>
+			{/if}
+		</div>
 	</div>
 </div>
