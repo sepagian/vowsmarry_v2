@@ -41,14 +41,15 @@
 
 	let {
 		ref = $bindable(null),
-		collapsible = 'offcanvas',
+		collapsible = 'icon',
 		variant = 'sidebar',
 		...restProps
 	}: ComponentProps<typeof Sidebar.Root> = $props();
 </script>
 
 <Sidebar.Root class="" {collapsible} {variant} {...restProps}>
-	<Sidebar.Content class="align-center pt-6">
+	<Sidebar.Header class="h-13.75"></Sidebar.Header>
+	<Sidebar.Content class="align-center">
 		<NavMain items={items.navMain} />
 	</Sidebar.Content>
 	<Sidebar.Footer>
