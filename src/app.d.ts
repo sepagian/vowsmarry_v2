@@ -19,6 +19,44 @@ declare global {
 		category: (typeof Category)[number];
 		priority?: 'Low' | 'Medium' | 'High';
 		status: 'Pending' | 'On Progress' | 'Completed';
+		date?: string;
+	};
+
+	// Simple Task type for todo sections
+	type SimpleTask = {
+		title: string;
+		description?: string;
+		done?: boolean | false;
+	};
+
+	// Expense type for expense tracking
+	type Expense = {
+		id: string;
+		date: string;
+		category: string;
+		description: string;
+		amount: number;
+		status: 'Paid' | 'Pending';
+	};
+
+	// Filter type for todo sections
+	type Filter = 'all' | 'active' | 'completed';
+
+	// Card types for overview sections
+	type OverviewCard = {
+		title: string;
+		description: string;
+		action?: string;
+		actionClass?: string;
+		actionColor?: string;
+		footer: string;
+	};
+
+	type BudgetCard = {
+		title: string;
+		description: string;
+		action?: string;
+		footer: string;
 	};
 	namespace App {
 		// interface Error {}
