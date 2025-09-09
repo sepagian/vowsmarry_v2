@@ -4,8 +4,8 @@
 	export let status: Task['status'];
 	export let onChange: (newStatus: Task['status']) => void;
 
-	const statusOptions = [
-		{ value: 'Complete', color: 'bg-green-600 text-white', icon: 'i-lucide:alarm-clock-check' },
+	const statusOptions: { value: Task['status']; color: string; icon: string }[] = [
+		{ value: 'Completed', color: 'bg-green-600 text-white', icon: 'i-lucide:alarm-clock-check' },
 		{
 			value: 'Pending',
 			color: 'bg-yellow-100 text-yellow-800',
