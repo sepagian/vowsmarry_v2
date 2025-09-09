@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Badge } from '$lib/components/ui/badge/index';
 	import * as Card from '$lib/components/ui/card/index';
+	import { Separator } from '../ui/separator/index';
 
 	let {
 		docsCards
@@ -27,6 +28,7 @@
 				<Card.Root class="@container/card shrink-0 w-64 sm:w-auto gap-2">
 					<Card.Header>
 						<Card.Description>{data.description}</Card.Description>
+						<Separator />
 						<Card.Title class="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">
 							{data.title}
 						</Card.Title>
