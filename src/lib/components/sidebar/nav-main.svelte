@@ -64,7 +64,7 @@
 										<Sidebar.MenuSubButton
 											class="hover:bg-neutral-200 dark:hover:bg-neutral-900 h-8"
 										>
-											{#snippet child({ props })}
+											{#snippet child({ props }: { props: any })}
 												<a href={subItem.url} {...props}>
 													{#if subItem.icon}
 														<div class="{subItem.icon} h-5 w-5"></div>
