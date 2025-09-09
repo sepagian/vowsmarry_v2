@@ -6,14 +6,7 @@
 		overviewCards,
 		overviewTitle
 	}: {
-		overviewCards: {
-			title: string;
-			description: string;
-			action?: string;
-			actionClass?: string;
-			actionColor?: string;
-			footer: string;
-		}[];
+		overviewCards: OverviewCard[];
 		overviewTitle: string;
 	} = $props();
 </script>
