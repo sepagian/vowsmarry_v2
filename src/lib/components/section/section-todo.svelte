@@ -2,7 +2,6 @@
 	import * as Card from '$lib/components/ui/card/index';
 	import * as Select from '$lib/components/ui/select/index';
 	import * as Dialog from '$lib/components/ui/dialog/index';
-	import { ScrollArea } from '$lib/components/ui/scroll-area/index';
 	import { Label } from '$lib/components/ui/label/index';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index';
 	import DialogTask from '../dialog/dialog-task.svelte';
@@ -46,7 +45,7 @@
 <div class="flex flex-col gap-2 pb-2">
 	<!-- Header -->
 	<div class="flex px-6 justify-between items-center">
-		<h2 class="text-base font-bold text-neutral-600">Tasks</h2>
+		<h2 class="text-base font-bold text-neutral-600">Recent Tasks</h2>
 		<div class="flex flex-1 items-center justify-end gap-4">
 			<Select.Root type="single" name="taskFilter" bind:value={filter}>
 				<Select.Trigger class="w-40 border border-neutral-300">
