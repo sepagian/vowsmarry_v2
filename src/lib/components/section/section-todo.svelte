@@ -6,20 +6,12 @@
 	import { Button, buttonVariants } from '$lib/components/ui/button/index';
 	import DialogTask from '../dialog/dialog-task.svelte';
 
-	type Task = {
-		title: string;
-		description?: string;
-		done?: boolean | false;
-	};
-
 	let {
 		tasks
 	}: {
-		tasks: Task[];
+		tasks: SimpleTask[];
 	} = $props();
 
-	// Filter options
-	type Filter = 'all' | 'active' | 'completed';
 	const filterOptions: { value: Filter; label: string }[] = [
 		{ value: 'all', label: 'All Tasks' },
 		{ value: 'active', label: 'Active' },
@@ -37,7 +29,10 @@
 				: tasks.filter((t) => t.done)
 	);
 
-	function toggleTask(t: Task) {
+	const completedTasks = $derived(tasks.filter((t) => t.done));
+	const allCompleted = $derived(tasks.length > 0 && completedTasks.length === tasks.length);
+
+	function toggleTask(t: SimpleTask) {
 		tasks = tasks.map((task) => (task.title === t.title ? { ...task, done: !task.done } : task));
 	}
 </script>
@@ -92,6 +87,29 @@
 
 		<!-- Task list -->
 		<div class="flex flex-col gap-4">
+			{#if tasks.length === 0}
+				<Label class="flex items-center justify-center h-12 gap-3 rounded-lg border p-3">
+					You don’t have any tasks yet
+				</Label>
+			{:else if filter === 'completed' && filteredTasks.length === 0}
+				<Label class="flex items-center justify-center h-12 gap-3 rounded-lg border p-3">
+					You have not completed any task yet
+				</Label>
+			{:else if allCompleted && filter !== 'completed' && filter !== 'active'}
+				<Label
+					class="flex items-center justify-center h-12 gap-3 rounded-lg border p-3 bg-green-50 text-green-600"
+				>
+					🎉 All tasks completed! Time to celebrate 🎉
+				</Label>
+			{:else if filter === 'active' && filteredTasks.length === 0}
+				<Label
+					class="flex items-center justify-center h-12 gap-3 rounded-lg border p-3 bg-sky-50 text-sky-600"
+				>
+					You do not have any active task
+				</Label>
+			{/if}
+
+			<!-- Always render tasks list if there are any filtered -->
 			{#if filteredTasks.length > 0}
 				{#each filteredTasks as task (task.title)}
 					<Card.Root class="@container/card flex flex-row justify-between items-center">
@@ -119,10 +137,6 @@
 						</div>
 					</Card.Root>
 				{/each}
-			{:else}
-				<Label class="flex items-center justify-center h-12 gap-3 rounded-lg border p-3"
-					>You have not completed any task yet</Label
-				>
 			{/if}
 		</div>
 	</div>

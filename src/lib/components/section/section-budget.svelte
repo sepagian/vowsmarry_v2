@@ -6,22 +6,17 @@
 	let {
 		budgetCards
 	}: {
-		budgetCards: {
-			title: string;
-			description: string;
-			action?: string;
-			footer: string;
-		}[];
+		budgetCards: BudgetCard[];
 	} = $props();
 
-	const data = [
+	const data: Expense[] = [
 		{
 			id: '1',
 			date: '2025-08-01',
 			category: 'Venue',
 			description: 'Down payment for venue booking',
 			amount: 5_000_000,
-			status: 'Paid'
+			status: 'Paid' as const
 		},
 		{
 			id: '2',
@@ -29,7 +24,7 @@
 			category: 'Venue',
 			description: 'Final payment for venue',
 			amount: 3_000_000,
-			status: 'Pending'
+			status: 'Pending' as const
 		},
 		{
 			id: '3',
@@ -37,7 +32,7 @@
 			category: 'Catering',
 			description: 'Initial catering deposit',
 			amount: 3_000_000,
-			status: 'Paid'
+			status: 'Paid' as const
 		},
 		{
 			id: '4',
@@ -45,7 +40,7 @@
 			category: 'Catering',
 			description: 'Second catering installment',
 			amount: 2_000_000,
-			status: 'Paid'
+			status: 'Paid' as const
 		},
 		{
 			id: '5',
@@ -53,7 +48,7 @@
 			category: 'Decoration',
 			description: 'Stage setup & flowers',
 			amount: 3_500_000,
-			status: 'Paid'
+			status: 'Paid' as const
 		},
 		{
 			id: '6',
@@ -61,7 +56,7 @@
 			category: 'Photography',
 			description: 'Pre-wedding photoshoot',
 			amount: 2_000_000,
-			status: 'Paid'
+			status: 'Paid' as const
 		},
 		{
 			id: '7',
@@ -69,7 +64,7 @@
 			category: 'Photography',
 			description: 'Wedding day coverage',
 			amount: 2_000_000,
-			status: 'Pending'
+			status: 'Pending' as const
 		},
 		{
 			id: '8',
@@ -77,7 +72,7 @@
 			category: 'Attire',
 			description: 'Bride and groom outfits',
 			amount: 4_000_000,
-			status: 'Paid'
+			status: 'Paid' as const
 		},
 		{
 			id: '9',
@@ -85,7 +80,7 @@
 			category: 'Entertainment',
 			description: 'Live band booking',
 			amount: 2_500_000,
-			status: 'Paid'
+			status: 'Paid' as const
 		},
 		{
 			id: '10',
@@ -93,7 +88,7 @@
 			category: 'Makeup & Hair',
 			description: 'Bridal makeup package',
 			amount: 3_000_000,
-			status: 'Pending'
+			status: 'Pending' as const
 		}
 	];
 </script>

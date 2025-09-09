@@ -4,7 +4,7 @@
 
 	let {
 		checked = false,
-		onCheckedChange = (v) => (checked = v),
+		onCheckedChange = (v: unknown) => (checked = !!v),
 		...restProps
 	}: ComponentProps<typeof Checkbox> = $props();
 </script>

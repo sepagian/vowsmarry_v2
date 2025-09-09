@@ -6,15 +6,12 @@
 		type RowSelectionState,
 		type SortingState,
 		type VisibilityState,
-		type FilterFn,
 		getCoreRowModel,
 		getFilteredRowModel,
 		getPaginationRowModel,
 		getSortedRowModel
 	} from '@tanstack/table-core';
 	import { createRawSnippet } from 'svelte';
-	import TaskTableCheckbox from './task-table-checkbox.svelte';
-	import TaskTableActions from './task-table-actions.svelte';
 	import * as Table from '$lib/components/ui/table/index';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index';
 	import * as Dialog from '$lib/components/ui/dialog/index';
@@ -26,36 +23,17 @@
 		renderComponent,
 		renderSnippet
 	} from '$lib/components/ui/data-table/index';
+	import { categoryColors } from '$lib/constants/category';
+	import TaskTableCheckbox from './task-table-checkbox.svelte';
+	import TaskTableActions from './task-table-actions.svelte';
 	import DialogTask from '../dialog/dialog-task.svelte';
-
-	type Task = {
-		id: string;
-		title: string;
-		description?: string;
-		category: string;
-		priority: 'Low' | 'Medium' | 'High';
-		status: 'Pending' | 'On Progress' | 'Completed';
-		date: string;
-	};
 
 	let { data }: { data: Task[] } = $props();
 
-	const categoryColors: Record<string, string> = {
-		accommodation: 'bg-blue-100 text-blue-800',
-		catering: 'bg-red-100 text-red-800',
-		decoration: 'bg-pink-100 text-pink-800',
-		entertainment: 'bg-purple-100 text-purple-800',
-		'makeup-attire': 'bg-rose-100 text-rose-800',
-		paperwork: 'bg-amber-100 text-amber-800',
-		'photo-video': 'bg-green-100 text-green-800',
-		venue: 'bg-indigo-100 text-indigo-800',
-		miscellaneous: 'bg-gray-100 text-gray-800'
-	};
-
-	const priorityColors: Record<Task['priority'], string> = {
-		Low: 'bg-green-100 text-green-800',
-		Medium: 'bg-yellow-100 text-yellow-800',
-		High: 'bg-red-100 text-red-800'
+	export const priorityColors: Record<NonNullable<Task['priority']>, { color: string; icon: string }> = {
+		Low: { color: 'bg-green-100 text-green-800', icon: 'i-lucide:arrow-down' },
+		Medium: { color: 'bg-yellow-100 text-yellow-800', icon: 'i-lucide:arrow-right' },
+		High: { color: 'bg-red-100 text-red-800', icon: 'i-lucide:arrow-up' }
 	};
 
 	const columns: ColumnDef<Task>[] = [
@@ -65,13 +43,13 @@
 				renderComponent(TaskTableCheckbox, {
 					checked: table.getIsAllPageRowsSelected(),
 					indeterminate: table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected(),
-					onCheckedChange: (value) => table.toggleAllPageRowsSelected(!!value),
+					onCheckedChange: (value: unknown) => table.toggleAllPageRowsSelected(!!value),
 					'aria-label': 'Select all'
 				}),
 			cell: ({ row }) =>
 				renderComponent(TaskTableCheckbox, {
 					checked: row.getIsSelected(),
-					onCheckedChange: (value) => row.toggleSelected(!!value),
+					onCheckedChange: (value: unknown) => row.toggleSelected(!!value),
 					'aria-label': 'Select row'
 				}),
 			enableSorting: false,
@@ -80,16 +58,16 @@
 		{
 			accessorKey: 'description',
 			header: () => {
-				const headerSnippet = createRawSnippet(() => ({
+				const descHeaderSnippet = createRawSnippet(() => ({
 					render: () => `<div class="font-semibold">Task Description</div>`
 				}));
-				return renderSnippet(headerSnippet, '');
+				return renderSnippet(descHeaderSnippet, '');
 			},
 			cell: ({ row }) => {
 				const snippet = createRawSnippet<[{ category: string; description: string }]>(
 					(getValue) => {
 						const { category, description } = getValue();
-						const colorClass = categoryColors[category] ?? 'bg-gray-100 text-gray-800';
+						const colorClass = categoryColors[category as Category] ?? 'bg-gray-100 text-gray-800';
 						return {
 							render: () =>
 								`<div class="flex items-center gap-2">
@@ -111,12 +89,12 @@
 		{
 			accessorKey: 'date',
 			header: () => {
-				const amountHeaderSnippet = createRawSnippet(() => {
+				const dateHeaderSnippet = createRawSnippet(() => {
 					return {
 						render: () => `<div class="font-semibold">Due Date</div>`
 					};
 				});
-				return renderSnippet(amountHeaderSnippet, '');
+				return renderSnippet(dateHeaderSnippet, '');
 			},
 			cell: ({ row }) => {
 				const taskSnippet = createRawSnippet<[string]>((getDate) => {
@@ -133,22 +111,25 @@
 		{
 			accessorKey: 'priority',
 			header: () => {
-				const amountHeaderSnippet = createRawSnippet(() => {
+				const priorityHeaderSnippet = createRawSnippet(() => {
 					return {
 						render: () => `<div class="font-semibold">Priority</div>`
 					};
 				});
-				return renderSnippet(amountHeaderSnippet, '');
+				return renderSnippet(priorityHeaderSnippet, '');
 			},
 			cell: ({ row }) => {
 				const snippet = createRawSnippet<[{ priority: Task['priority'] }]>((get) => {
 					const { priority } = get();
-					const colorClass = priorityColors[priority];
+					if (!priority) return { render: () => '' };
+					const { color, icon } = priorityColors[priority];
 					return {
-						render: () =>
-							`<span class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${colorClass}">
-           ${priority}
-         </span>`
+						render: () => `
+        <span class="inline-flex items-center rounded-md px-2 py-1 text-xs gap-2 font-medium ${color}">
+          <div class="${icon}"></div>
+          ${priority}
+        </span>
+      `
 					};
 				});
 
@@ -160,15 +141,25 @@
 			id: 'actions',
 			accessorKey: 'status',
 			header: () => {
-				const amountHeaderSnippet = createRawSnippet(() => {
+				const actionsHeaderSnippet = createRawSnippet(() => {
 					return {
 						render: () => `<div class="font-semibold">Status</div>`
 					};
 				});
-				return renderSnippet(amountHeaderSnippet, '');
+				return renderSnippet(actionsHeaderSnippet, '');
 			},
 			enableHiding: false,
-			cell: ({ row }) => renderComponent(TaskTableActions, { status: row.original.status })
+			cell: ({ row }) =>
+				renderComponent(TaskTableActions, {
+					status: row.original.status,
+					onChange: (newStatus: Task['status']) => {
+						const taskIndex = data.findIndex((task) => task.id === row.original.id);
+						if (taskIndex !== -1) {
+							data[taskIndex] = { ...data[taskIndex], status: newStatus };
+							data = [...data];
+						}
+					}
+				})
 		}
 	];
 
@@ -247,13 +238,13 @@
 		<Input
 			placeholder="Filter category..."
 			value={(table.getState().globalFilter as string) ?? ''}
-			oninput={(e) => {
-				const val = e.currentTarget.value;
+			oninput={(e: Event) => {
+				const val = (e.currentTarget as HTMLInputElement).value;
 				table.getColumn('description')?.setFilterValue(val);
 				table.getColumn('category')?.setFilterValue(val);
 			}}
-			onchange={(e) => {
-				const val = e.currentTarget.value;
+			onchange={(e: Event) => {
+				const val = (e.currentTarget as HTMLInputElement).value;
 				table.getColumn('description')?.setFilterValue(val);
 				table.getColumn('category')?.setFilterValue(val);
 			}}

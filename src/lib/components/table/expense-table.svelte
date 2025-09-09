@@ -27,15 +27,6 @@
 	} from '$lib/components/ui/data-table/index.js';
 	import DialogExpense from '../dialog/dialog-expense.svelte';
 
-	type Expense = {
-		id: string;
-		date: string;
-		category: string;
-		description: string;
-		amount: number;
-		status: 'Paid' | 'Pending';
-	};
-
 	let { data }: { data: Expense[] } = $props();
 
 	const columns: ColumnDef<Expense>[] = [
@@ -45,13 +36,13 @@
 				renderComponent(ExpenseTableCheckbox, {
 					checked: table.getIsAllPageRowsSelected(),
 					indeterminate: table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected(),
-					onCheckedChange: (value) => table.toggleAllPageRowsSelected(!!value),
+					onCheckedChange: (value: unknown) => table.toggleAllPageRowsSelected(!!value),
 					'aria-label': 'Select all'
 				}),
 			cell: ({ row }) =>
 				renderComponent(ExpenseTableCheckbox, {
 					checked: row.getIsSelected(),
-					onCheckedChange: (value) => row.toggleSelected(!!value),
+					onCheckedChange: (value: unknown) => row.toggleSelected(!!value),
 					'aria-label': 'Select row'
 				}),
 			enableSorting: false,
@@ -244,9 +235,9 @@
 		<Input
 			placeholder="Filter category..."
 			value={(table.getColumn('category')?.getFilterValue() as string) ?? ''}
-			oninput={(e) => table.getColumn('category')?.setFilterValue(e.currentTarget.value)}
-			onchange={(e) => {
-				table.getColumn('category')?.setFilterValue(e.currentTarget.value);
+			oninput={(e: Event) => table.getColumn('category')?.setFilterValue((e.currentTarget as HTMLInputElement).value)}
+			onchange={(e: Event) => {
+				table.getColumn('category')?.setFilterValue((e.currentTarget as HTMLInputElement).value);
 			}}
 			class="max-w-sm border-1 border-neutral-200"
 		/>
