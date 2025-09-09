@@ -10,6 +10,8 @@
 			title: string;
 			description: string;
 			action?: string;
+			actionClass?: string;
+			actionColor?: string;
 			footer: string;
 		}[];
 		overviewTitle: string;
@@ -25,13 +27,22 @@
 		class="flex gap-4 overflow-x-auto scrollbar-none scroll-smooth sm:grid md:grid lg:grid-cols-3 xl:grid-cols-4 px-6"
 	>
 		{#each overviewCards as data (data.description)}
-			<Card.Root class="@container/card shrink-0 w-64 sm:w-auto gap-2">
+			<Card.Root class="@container/card shrink-0 w-64 h-32 sm:w-auto gap-2 flex flex-col py-4">
 				<Card.Header class="flex flex-col gap-2">
-					<div class="flex flex-row justify-between items-center w-full">
+					<div class="flex flex-1 justify-between align-center w-full">
 						<Card.Description>{data.description}</Card.Description>
 						<Card.Action>
 							{#if data.action}
-								<Badge variant="outline">{data.action}</Badge>
+								<Badge variant="outline" class="flex items-center justify-center"
+									>{data.action}</Badge
+								>
+							{/if}
+							{#if data.actionClass}
+								<Badge
+									class="flex items-center justify-center rounded-full px-0 font-mono tabular-nums"
+								>
+									<div class="{data.actionClass} {data.actionColor} h-4 w-4"></div>
+								</Badge>
 							{/if}
 						</Card.Action>
 					</div>
