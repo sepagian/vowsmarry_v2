@@ -6,20 +6,13 @@
 	import { Button, buttonVariants } from '$lib/components/ui/button/index';
 	import DialogTask from '../dialog/dialog-task.svelte';
 
-	type Task = {
-		title: string;
-		description?: string;
-		done?: boolean | false;
-	};
-
 	let {
 		tasks
 	}: {
-		tasks: Task[];
+		tasks: SimpleTask[];
 	} = $props();
 
-	// Filter options
-	type Filter = 'all' | 'active' | 'completed';
+
 	const filterOptions: { value: Filter; label: string }[] = [
 		{ value: 'all', label: 'All Tasks' },
 		{ value: 'active', label: 'Active' },
@@ -37,7 +30,7 @@
 				: tasks.filter((t) => t.done)
 	);
 
-	function toggleTask(t: Task) {
+	function toggleTask(t: SimpleTask) {
 		tasks = tasks.map((task) => (task.title === t.title ? { ...task, done: !task.done } : task));
 	}
 </script>
