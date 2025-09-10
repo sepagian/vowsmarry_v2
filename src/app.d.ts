@@ -12,6 +12,8 @@ declare global {
 		| 'venue'
 		| 'miscellaneous';
 
+	type DocType = 'legal-formal' | 'vendor-finance' | 'guest-ceremony' | 'personal-keepsake';
+
 	type Task = {
 		id: string;
 		title: string;
