@@ -36,34 +36,34 @@
 
 	const docsCards = [
 		{
-			title: 'Marriage License',
 			description: 'Official paperwork required to legally tie the knot.',
-			footer: 'Uploaded on Sep 1, 2025'
+			type: 'legal-formal',
+			footer: 'Sep 1, 2025'
 		},
 		{
-			title: 'Venue Contract',
 			description: 'Agreement with Rosewood Hall including deposit details.',
-			footer: 'Uploaded on Aug 28, 2025'
+			type: 'vendor-finance',
+			footer: 'Aug 28, 2025'
 		},
 		{
-			title: 'Photography Agreement',
 			description: 'Package details and payment terms for wedding photography.',
-			footer: 'Uploaded on Aug 25, 2025'
+			type: 'vendor-finance',
+			footer: 'Aug 25, 2025'
 		},
 		{
-			title: 'Ceremony Program',
 			description: 'Running order of events including readings and vows.',
-			footer: 'Last edited on Sep 3, 2025'
+			type: 'guest-ceremony',
+			footer: 'Sep 3, 2025'
 		},
 		{
-			title: 'Vows Draft',
 			description: 'Personal vow draft, marked as private.',
-			footer: 'Saved on Sep 5, 2025'
+			type: 'personal-keepsake',
+			footer: 'Sep 5, 2025'
 		},
 		{
-			title: 'Budget Spreadsheet',
 			description: 'Detailed expense tracking for all vendors and extras.',
-			footer: 'Updated on Sep 7, 2025'
+			type: 'vendor-finance',
+			footer: 'Sep 7, 2025'
 		}
 	];
 </script>
