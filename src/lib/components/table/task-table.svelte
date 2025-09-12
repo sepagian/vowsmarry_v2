@@ -9,7 +9,7 @@
 		getCoreRowModel,
 		getFilteredRowModel,
 		getPaginationRowModel,
-		getSortedRowModel
+		getSortedRowModel,
 	} from '@tanstack/table-core';
 	import { createRawSnippet } from 'svelte';
 	import * as Table from '$lib/components/ui/table/index';
@@ -21,20 +21,15 @@
 		FlexRender,
 		createSvelteTable,
 		renderComponent,
-		renderSnippet
+		renderSnippet,
 	} from '$lib/components/ui/data-table/index';
-	import { categoryColors } from '$lib/constants/category';
+	import { priorityColors } from '$lib/constants/task-constants';
 	import TaskTableCheckbox from './task-table-checkbox.svelte';
 	import TaskTableActions from './task-table-actions.svelte';
+	import TaskTableDesc from './task-table-desc.svelte';
 	import DialogTask from '../dialog/dialog-task.svelte';
 
 	let { data }: { data: Task[] } = $props();
-
-	export const priorityColors: Record<NonNullable<Task['priority']>, { color: string; icon: string }> = {
-		Low: { color: 'bg-green-100 text-green-800', icon: 'i-lucide:arrow-down' },
-		Medium: { color: 'bg-yellow-100 text-yellow-800', icon: 'i-lucide:arrow-right' },
-		High: { color: 'bg-red-100 text-red-800', icon: 'i-lucide:arrow-up' }
-	};
 
 	const columns: ColumnDef<Task>[] = [
 		{
@@ -44,54 +39,38 @@
 					checked: table.getIsAllPageRowsSelected(),
 					indeterminate: table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected(),
 					onCheckedChange: (value: unknown) => table.toggleAllPageRowsSelected(!!value),
-					'aria-label': 'Select all'
+					'aria-label': 'Select all',
 				}),
 			cell: ({ row }) =>
 				renderComponent(TaskTableCheckbox, {
 					checked: row.getIsSelected(),
 					onCheckedChange: (value: unknown) => row.toggleSelected(!!value),
-					'aria-label': 'Select row'
+					'aria-label': 'Select row',
 				}),
 			enableSorting: false,
-			enableHiding: false
+			enableHiding: false,
 		},
 		{
 			accessorKey: 'description',
 			header: () => {
-				const descHeaderSnippet = createRawSnippet(() => ({
-					render: () => `<div class="font-semibold">Task Description</div>`
-				}));
-				return renderSnippet(descHeaderSnippet, '');
-			},
-			cell: ({ row }) => {
-				const snippet = createRawSnippet<[{ category: string; description: string }]>(
-					(getValue) => {
-						const { category, description } = getValue();
-						const colorClass = categoryColors[category as Category] ?? 'bg-gray-100 text-gray-800';
-						return {
-							render: () =>
-								`<div class="flex items-center gap-2">
-             <span class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${colorClass}">
-               ${category}
-             </span>
-             <span>${description}</span>
-           </div>`
-						};
-					}
-				);
-
-				return renderSnippet(snippet, {
-					category: row.original.category as string,
-					description: row.original.description as string
+				const descriptionHeaderSnippet = createRawSnippet(() => {
+					return { render: () => `<div class="font-semibold">Task Description</div>` };
 				});
-			}
+				return renderSnippet(descriptionHeaderSnippet, '');
+			},
+			enableHiding: false,
+			cell: ({ row }) =>
+				renderComponent(TaskTableDesc, {
+					category: row.original.category,
+					description: row.original.description,
+				}),
 		},
 		{
 			accessorKey: 'date',
 			header: () => {
 				const dateHeaderSnippet = createRawSnippet(() => {
 					return {
-						render: () => `<div class="font-semibold">Due Date</div>`
+						render: () => `<div class="font-semibold">Due Date</div>`,
 					};
 				});
 				return renderSnippet(dateHeaderSnippet, '');
@@ -101,19 +80,19 @@
 					const date = getDate();
 					return {
 						render: () =>
-							`<div class="flex flex-row gap-2 items-center"><div class="i-lucide:calendar"></div>${date}</div>`
+							`<div class="flex flex-row gap-2 items-center"><div class="i-lucide:calendar"></div>${date}</div>`,
 					};
 				});
 
 				return renderSnippet(taskSnippet, row.getValue('date'));
-			}
+			},
 		},
 		{
 			accessorKey: 'priority',
 			header: () => {
 				const priorityHeaderSnippet = createRawSnippet(() => {
 					return {
-						render: () => `<div class="font-semibold">Priority</div>`
+						render: () => `<div class="font-semibold">Priority</div>`,
 					};
 				});
 				return renderSnippet(priorityHeaderSnippet, '');
@@ -122,19 +101,19 @@
 				const snippet = createRawSnippet<[{ priority: Task['priority'] }]>((get) => {
 					const { priority } = get();
 					if (!priority) return { render: () => '' };
-					const { color, icon } = priorityColors[priority];
+					const { color, icon } = priorityColors.find((p) => p.value === priority) ?? {};
 					return {
 						render: () => `
         <span class="inline-flex items-center rounded-md px-2 py-1 text-xs gap-2 font-medium ${color}">
           <div class="${icon}"></div>
           ${priority}
         </span>
-      `
+      `,
 					};
 				});
 
 				return renderSnippet(snippet, { priority: row.original.priority });
-			}
+			},
 		},
 
 		{
@@ -143,7 +122,7 @@
 			header: () => {
 				const actionsHeaderSnippet = createRawSnippet(() => {
 					return {
-						render: () => `<div class="font-semibold">Status</div>`
+						render: () => `<div class="font-semibold">Status</div>`,
 					};
 				});
 				return renderSnippet(actionsHeaderSnippet, '');
@@ -158,9 +137,9 @@
 							data[taskIndex] = { ...data[taskIndex], status: newStatus };
 							data = [...data];
 						}
-					}
-				})
-		}
+					},
+				}),
+		},
 	];
 
 	let pagination = $state<PaginationState>({ pageIndex: 0, pageSize: 10 });
@@ -189,7 +168,7 @@
 			},
 			get columnFilters() {
 				return columnFilters;
-			}
+			},
 		},
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
@@ -229,7 +208,7 @@
 			} else {
 				rowSelection = updater;
 			}
-		}
+		},
 	});
 </script>
 
