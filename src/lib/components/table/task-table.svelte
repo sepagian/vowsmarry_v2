@@ -23,7 +23,7 @@
 		renderComponent,
 		renderSnippet,
 	} from '$lib/components/ui/data-table/index';
-	import { priorityColors } from '$lib/constants/task-constants';
+	import { priorityOptions } from '$lib/constants/constants';
 	import TaskTableCheckbox from './task-table-checkbox.svelte';
 	import TaskTableActions from './task-table-actions.svelte';
 	import TaskTableDesc from './task-table-desc.svelte';
@@ -51,6 +51,7 @@
 			enableHiding: false,
 		},
 		{
+			id: 'description',
 			accessorKey: 'description',
 			header: () => {
 				const descriptionHeaderSnippet = createRawSnippet(() => {
@@ -101,7 +102,7 @@
 				const snippet = createRawSnippet<[{ priority: Task['priority'] }]>((get) => {
 					const { priority } = get();
 					if (!priority) return { render: () => '' };
-					const { color, icon } = priorityColors.find((p) => p.value === priority) ?? {};
+					const { color, icon } = priorityOptions.find((p) => p.value === priority) ?? {};
 					return {
 						render: () => `
         <span class="inline-flex items-center rounded-md px-2 py-1 text-xs gap-2 font-medium ${color}">

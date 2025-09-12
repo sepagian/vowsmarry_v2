@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
-	import { statusOptions } from '$lib/constants/task-constants';
+	import { statusOptions } from '$lib/constants/constants';
 
 	export let status: Task['status'];
 	export let onChange: (newStatus: Task['status']) => void;
@@ -17,12 +17,12 @@
 
 <DropdownMenu.Root>
 	<DropdownMenu.Trigger class={`rounded-md text-sm ${getColor(status)}`}>
-		<div
+		<button
 			class={`rounded-md px-3 inline-flex items-center gap-2 py-1 text-sm font-medium ${getColor(status)}`}
 		>
 			<div class={`${getIcon(status)}`}></div>
 			{status}
-		</div>
+		</button>
 	</DropdownMenu.Trigger>
 
 	<DropdownMenu.Content class="bg-white">

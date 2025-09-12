@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { Badge } from '$lib/components/ui/badge/index';
-	import { categoryColors } from '$lib/constants/task-constants';
+	import { categoryOptions } from '$lib/constants/constants';
 
 	export let description: Task['description'];
 	export let category: Task['category'];
 
 	function getCategoryColor(category: Task['category']) {
-		return categoryColors.find((c) => c.value === category)?.color ?? 'bg-gray-100 text-gray-800';
+		return categoryOptions.find((c) => c.value === category)?.color ?? 'bg-gray-200 text-gray-800';
 	}
 </script>
 
