@@ -1,18 +1,9 @@
 <script lang="ts">
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import { statusOptions } from '$lib/constants/task-constants';
 
 	export let status: Task['status'];
 	export let onChange: (newStatus: Task['status']) => void;
-
-	const statusOptions: { value: Task['status']; color: string; icon: string }[] = [
-		{ value: 'Completed', color: 'bg-green-600 text-white', icon: 'i-lucide:alarm-clock-check' },
-		{
-			value: 'Pending',
-			color: 'bg-yellow-100 text-yellow-800',
-			icon: 'i-lucide:alarm-clock-minus'
-		},
-		{ value: 'On Progress', color: 'bg-sky-200 text-sky-800', icon: 'i-lucide:alarm-clock' }
-	];
 
 	function getColor(status: Task['status']) {
 		return (
@@ -26,12 +17,12 @@
 
 <DropdownMenu.Root>
 	<DropdownMenu.Trigger class={`rounded-md text-sm ${getColor(status)}`}>
-		<button
+		<div
 			class={`rounded-md px-3 inline-flex items-center gap-2 py-1 text-sm font-medium ${getColor(status)}`}
 		>
 			<div class={`${getIcon(status)}`}></div>
 			{status}
-		</button>
+		</div>
 	</DropdownMenu.Trigger>
 
 	<DropdownMenu.Content class="bg-white">
