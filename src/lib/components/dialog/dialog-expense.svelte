@@ -5,32 +5,21 @@
 	import { Input } from '$lib/components/ui/input/index';
 	import { Label } from '$lib/components/ui/label/index';
 	import { Textarea } from '$lib/components/ui/textarea/index';
+	import { categoryOptions, expenseStatusOptions } from '$lib/constants/constants';
 
-	const categories = [
-		{ value: 'accommodation', label: 'Accommodation' },
-		{ value: 'catering', label: 'Catering' },
-		{ value: 'decoration', label: 'Decoration' },
-		{ value: 'entertainment', label: 'Entertainment' },
-		{ value: 'makeup-attire', label: 'Make-up & Attire' },
-		{ value: 'paperwork', label: 'Paperwork' },
-		{ value: 'photo-video', label: 'Photo & Video' },
-		{ value: 'venue', label: 'Venue' },
-		{ value: 'miscellaneous', label: 'Miscellaneous' }
-	];
-
-	const statuses = [
-		{ value: 'paid', label: 'Paid' },
-		{ value: 'unpaid', label: 'Unpaid' }
-	];
-
-	let value = $state('');
+	let categoryValue = $state('');
+	let statusValue = $state('');
 
 	const triggerCategory = $derived(
-		value ? categories.find((c) => c.value === value)?.label : 'Pick a category'
+		categoryValue
+			? categoryOptions.find((c) => c.value === categoryValue)?.label
+			: 'Pick a category',
 	);
 
 	const triggerStatus = $derived(
-		value ? statuses.find((p) => p.value === value)?.label : 'Payment status'
+		statusValue
+			? expenseStatusOptions.find((p) => p.value === statusValue)?.label
+			: 'Payment status',
 	);
 </script>
 
@@ -61,13 +50,13 @@
 
 		<div class="flex flex-col gap-2">
 			<Label for="expenseCategory" class="text-right">Category</Label>
-			<Select.Root type="single" name="expenseCategory" bind:value>
+			<Select.Root type="single" name="expenseCategory" bind:value={categoryValue}>
 				<Select.Trigger class="w-full">
 					{triggerCategory}
 				</Select.Trigger>
 				<Select.Content>
 					<Select.Group>
-						{#each categories as category (category.value)}
+						{#each categoryOptions as category (category.value)}
 							<Select.Item value={category.value} label={category.label}>
 								{category.label}
 							</Select.Item>
@@ -78,13 +67,13 @@
 		</div>
 		<div class="flex flex-col gap-2">
 			<Label for="expenseStatus" class="text-right">Status</Label>
-			<Select.Root type="single" name="expenseStatus" bind:value>
+			<Select.Root type="single" name="expenseStatus" bind:value={statusValue}>
 				<Select.Trigger class="w-full">
 					{triggerStatus}
 				</Select.Trigger>
 				<Select.Content>
 					<Select.Group>
-						{#each statuses as status (status.value)}
+						{#each expenseStatusOptions as status (status.value)}
 							<Select.Item value={status.value} label={status.label}>
 								{status.label}
 							</Select.Item>
