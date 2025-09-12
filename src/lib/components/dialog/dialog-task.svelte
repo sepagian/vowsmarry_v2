@@ -5,33 +5,21 @@
 	import { Input } from '$lib/components/ui/input/index';
 	import { Label } from '$lib/components/ui/label/index';
 	import { Textarea } from '$lib/components/ui/textarea/index';
+	import { categoryOptions, priorityOptions } from '$lib/constants/constants';
 
-	const categories = [
-		{ value: 'accommodation', label: 'Accommodation' },
-		{ value: 'catering', label: 'Catering' },
-		{ value: 'decoration', label: 'Decoration' },
-		{ value: 'entertainment', label: 'Entertainment' },
-		{ value: 'makeup-attire', label: 'Make-up & Attire' },
-		{ value: 'paperwork', label: 'Paperwork' },
-		{ value: 'photo-video', label: 'Photo & Video' },
-		{ value: 'venue', label: 'Venue' },
-		{ value: 'miscellaneous', label: 'Miscellaneous' }
-	];
-
-	const priorities = [
-		{ value: 'low', label: 'Low' },
-		{ value: 'medium', label: 'Medium' },
-		{ value: 'high', label: 'High' }
-	];
-
-	let value = $state('');
+	let categoryValue = $state('');
+	let priorityValue = $state('');
 
 	const triggerCategory = $derived(
-		value ? categories.find((c) => c.value === value)?.label : 'Pick a category'
+		categoryValue
+			? categoryOptions.find((c) => c.value === categoryValue)?.label
+			: 'Pick a category',
 	);
 
 	const triggerPriority = $derived(
-		value ? priorities.find((p) => p.value === value)?.label : 'Choose priority level'
+		priorityValue
+			? priorityOptions.find((p) => p.value === priorityValue)?.label
+			: 'Choose priority level',
 	);
 </script>
 
@@ -57,13 +45,13 @@
 		</div>
 		<div class="flex flex-col gap-2">
 			<Label for="taskCategory" class="text-right">Category</Label>
-			<Select.Root type="single" name="taskCategory" bind:value>
+			<Select.Root type="single" name="taskCategory" bind:value={categoryValue}>
 				<Select.Trigger class="w-full">
 					{triggerCategory}
 				</Select.Trigger>
 				<Select.Content>
 					<Select.Group>
-						{#each categories as category (category.value)}
+						{#each categoryOptions as category (category.value)}
 							<Select.Item value={category.value} label={category.label}>
 								{category.label}
 							</Select.Item>
@@ -74,13 +62,13 @@
 		</div>
 		<div class="flex flex-col gap-2">
 			<Label for="taskPriority" class="text-right">Priority</Label>
-			<Select.Root type="single" name="taskPriority" bind:value>
+			<Select.Root type="single" name="taskPriority" bind:value={priorityValue}>
 				<Select.Trigger class="w-full">
 					{triggerPriority}
 				</Select.Trigger>
 				<Select.Content>
 					<Select.Group>
-						{#each priorities as priority (priority.value)}
+						{#each priorityOptions as priority (priority.value)}
 							<Select.Item value={priority.value} label={priority.label}>
 								{priority.label}
 							</Select.Item>
