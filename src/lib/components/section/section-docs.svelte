@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { Badge } from '$lib/components/ui/badge/index';
 	import * as Card from '$lib/components/ui/card/index';
+	import { typeOptions } from '$lib/constants/task-constants';
 
 	let {
-		docsCards
+		docsCards,
 	}: {
 		docsCards: {
 			description: string;
@@ -12,17 +13,6 @@
 			footer: string;
 		}[];
 	} = $props();
-
-	const typeOptions: {
-		value: DocType;
-		label: string;
-		icon: string;
-	}[] = [
-		{ value: 'legal-formal', label: 'Legal & Formal', icon: 'i-lucide:scale' },
-		{ value: 'vendor-finance', label: 'Vendor & Finance', icon: 'i-lucide:scroll-text' },
-		{ value: 'guest-ceremony', label: 'Guest & Ceremony', icon: 'i-lucide:book-open-check' },
-		{ value: 'personal-keepsake', label: 'Personal & Keepsake', icon: 'i-lucide:heart' }
-	];
 
 	function getType(type: DocType) {
 		return typeOptions.find((s) => s.value === type)?.label ?? '';
