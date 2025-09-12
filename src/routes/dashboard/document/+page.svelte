@@ -67,7 +67,7 @@
 			footer: 'Sep 5, 2025'
 		},
 		{
-			description: 'Detailed expense tracking for all vendors and extras.',
+			description: 'Detailed expense tracking for all vendors and extra.',
 			type: 'vendor-finance',
 			footer: 'Sep 7, 2025'
 		}
