@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Badge } from '$lib/components/ui/badge/index';
 	import * as Card from '$lib/components/ui/card/index';
-	import { typeOptions } from '$lib/constants/task-constants';
+	import { docTypeOptions } from '$lib/constants/constants';
 
 	let {
 		docsCards,
@@ -15,10 +15,10 @@
 	} = $props();
 
 	function getType(type: DocType) {
-		return typeOptions.find((s) => s.value === type)?.label ?? '';
+		return docTypeOptions.find((s) => s.value === type)?.label ?? '';
 	}
 	function getIcon(type: DocType) {
-		return typeOptions.find((s) => s.value === type)?.icon ?? '';
+		return docTypeOptions.find((s) => s.value === type)?.icon ?? '';
 	}
 </script>
 
