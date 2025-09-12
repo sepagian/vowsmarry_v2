@@ -25,3 +25,14 @@ export const priorityColors: { value: Task['priority']; color: string; icon: str
 	{ value: 'Medium', color: 'bg-yellow-100 text-yellow-800', icon: 'i-lucide:arrow-right' },
 	{ value: 'High', color: 'bg-red-100 text-red-800', icon: 'i-lucide:arrow-up' },
 ];
+
+export const typeOptions: {
+	value: DocType;
+	label: string;
+	icon: string;
+}[] = [
+	{ value: 'legal-formal', label: 'Legal & Formal', icon: 'i-lucide:scale' },
+	{ value: 'vendor-finance', label: 'Vendor & Finance', icon: 'i-lucide:scroll-text' },
+	{ value: 'guest-ceremony', label: 'Guest & Ceremony', icon: 'i-lucide:book-open-check' },
+	{ value: 'personal-keepsake', label: 'Personal & Keepsake', icon: 'i-lucide:heart' },
+];
