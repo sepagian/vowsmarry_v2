@@ -34,7 +34,13 @@
 	];
 	const overviewTitle = 'Document Overview';
 
-	const docsCards = [
+	// Explicitly type the docsCards array to match the expected component prop type
+	const docsCards: {
+		description: string;
+		type: DocType;
+		action?: string;
+		footer: string;
+	}[] = [
 		{
 			description: 'Official paperwork required to legally tie the knot.',
 			type: 'legal-formal',
