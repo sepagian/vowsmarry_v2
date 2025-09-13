@@ -1,5 +1,5 @@
 <script lang="ts">
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index';
 	import { statusOptions } from '$lib/constants/constants';
 
 	export let status: Task['status'];
@@ -16,18 +16,21 @@
 </script>
 
 <DropdownMenu.Root>
-	<DropdownMenu.Trigger class={`rounded-md text-sm ${getColor(status)}`}>
-		<button
+	<DropdownMenu.Trigger>
+		<div
 			class={`rounded-md px-3 inline-flex items-center gap-2 py-1 text-sm font-medium ${getColor(status)}`}
 		>
 			<div class={`${getIcon(status)}`}></div>
 			{status}
-		</button>
+		</div>
 	</DropdownMenu.Trigger>
 
 	<DropdownMenu.Content class="bg-white">
 		{#each statusOptions as s (s.value)}
-			<DropdownMenu.Item class="flex items-center gap-2" onclick={() => onChange(s.value)}>
+			<DropdownMenu.Item
+				class="flex items-center gap-2"
+				onclick={() => onChange(s.value)}
+			>
 				{#if s.value === status}
 					<div class="i-lucide:check h-4 w-4 text-gray-500"></div>
 				{:else}
