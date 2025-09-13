@@ -12,8 +12,10 @@ import {
 import { builtinColors, presetShadcn } from 'unocss-preset-shadcn';
 import { presetAnimations } from 'unocss-preset-animations';
 import { presetScrollbar } from 'unocss-preset-scrollbar';
+import { safelistClasses } from './src/lib/styles/safelist';
 
 export default defineConfig({
+	safelist: safelistClasses,
 	presets: [
 		presetWind4(),
 		presetIcons({
