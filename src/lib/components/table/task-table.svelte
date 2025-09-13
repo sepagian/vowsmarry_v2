@@ -23,10 +23,10 @@
 		renderComponent,
 		renderSnippet,
 	} from '$lib/components/ui/data-table/index';
-	import { priorityOptions } from '$lib/constants/constants';
-	import TaskTableCheckbox from './task-table-checkbox.svelte';
-	import TaskTableActions from './task-table-actions.svelte';
-	import TaskTableDesc from './task-table-desc.svelte';
+import TaskTableCheckbox from './task-table-checkbox.svelte';
+import TaskTableActions from './task-table-actions.svelte';
+import TaskTableDesc from './task-table-desc.svelte';
+import TaskTablePriority from './task-table-priority.svelte';
 	import DialogTask from '../dialog/dialog-task.svelte';
 
 	let { data }: { data: Task[] } = $props();
@@ -98,23 +98,10 @@
 				});
 				return renderSnippet(priorityHeaderSnippet, '');
 			},
-			cell: ({ row }) => {
-				const snippet = createRawSnippet<[{ priority: Task['priority'] }]>((get) => {
-					const { priority } = get();
-					if (!priority) return { render: () => '' };
-					const { color, icon } = priorityOptions.find((p) => p.value === priority) ?? {};
-					return {
-						render: () => `
-        <span class="inline-flex items-center rounded-md px-2 py-1 text-xs gap-2 font-medium ${color}">
-          <div class="${icon}"></div>
-          ${priority}
-        </span>
-      `,
-					};
-				});
-
-				return renderSnippet(snippet, { priority: row.original.priority });
-			},
+			cell: ({ row }) =>
+				renderComponent(TaskTablePriority, {
+					priority: row.original.priority,
+				}),
 		},
 
 		{
@@ -123,7 +110,7 @@
 			header: () => {
 				const actionsHeaderSnippet = createRawSnippet(() => {
 					return {
-						render: () => `<div class="font-semibold">Status</div>`,
+						render: () => `<div class="font-semibold w-32">Status</div>`,
 					};
 				});
 				return renderSnippet(actionsHeaderSnippet, '');
